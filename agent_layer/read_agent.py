@@ -2,11 +2,12 @@
 import argparse
 import asyncio
 import json
-import os
 
-from agents import Agent, Runner, RunConfig
+from agents import Agent, Runner, RunConfig, OpenAIResponsesModel
+from openai import AsyncOpenAI
 
 from app.mcp_client import server_connection
+from app.credentials import CredentialError, resolve_settings
 from domain.query_service import now_local
 
 
@@ -24,11 +25,14 @@ def make_agent(server, model):
 
 
 async def main(message):
-    if not os.environ.get("OPENAI_API_KEY") or not os.environ.get("AGENT_MODEL"):
-        raise SystemExit("Real-model mode requires OPENAI_API_KEY and AGENT_MODEL. Offline demo: python -m app.ui")
-    async with server_connection() as server:
+    try:
+        settings = resolve_settings()
+    except CredentialError as exc:
+        raise SystemExit(str(exc)) from None
+    async with AsyncOpenAI(api_key=settings.api_key) as client, server_connection() as server:
         async with asyncio.timeout(90):
-            result = await Runner.run(make_agent(server, os.environ["AGENT_MODEL"]), message,
+            model = OpenAIResponsesModel(model=settings.model, openai_client=client)
+            result = await Runner.run(make_agent(server, model), message,
                 max_turns=8, run_config=RunConfig(tracing_disabled=True))
         # Receipts are shown independently of the model narrative for inspection.
         receipts = [item.output for item in result.new_items if item.type == "tool_call_output_item"]

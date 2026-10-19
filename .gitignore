@@ -8,6 +8,8 @@ __pycache__/
 *.key
 *.p12
 *.pfx
+*.dpapi
+.serena/
 data/*.sqlite*
 work/
 *.log

@@ -71,13 +71,30 @@ smoke 固定使用 2026-10-23 的演示场景。测试使用临时库，检查�
 
 ## 后续真实模型联调
 
-agent_layer/read_agent.py 是可选单Agent入口。必须由开发者在本地环境设置 OPENAI_API_KEY 与 AGENT_MODEL；.env.example 不会自动加载，密钥不要加入仓库或截图。当前未进行真实模型调用，不能据此宣称自然语言成功率。
+agent_layer/read_agent.py 是可选单Agent入口。Windows可用DPAPI加密保存API Key与模型ID，入口启动时自动读取；其他系统使用OPENAI_API_KEY与AGENT_MODEL环境变量。环境变量优先于保存值；.env.example不会自动加载，密钥不要加入仓库或截图。当前未进行真实模型调用，不能据此宣称自然语言成功率。
+
+首次保存（在你自己的交互式终端输入；密钥不显示）：
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.configure_api set
+.\.venv\Scripts\python.exe -m scripts.configure_api status
+```
+
+如果当前终端已经设置好OPENAI_API_KEY和AGENT_MODEL，也可以直接加密保存，无需重输：
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.configure_api set --from-env
+```
+
+此操作不联网、不调用模型。文件位于`%LOCALAPPDATA%\CampusVenueAssistant\credentials.dpapi`，在Git仓库之外，并限制为当前用户访问。重启后，同一Windows用户运行下方模型入口会自动解密读取。不要复制该文件给组员；每人保存自己的配置。完整说明见[DPAPI配置指南](docs/DPAPI_SETUP.md)。
 
 ```powershell
 .\.venv\Scripts\python.exe -m agent_layer.read_agent "2026-10-23，6人，15:30至19:30之间使用120分钟，必须有投影，偏好C座。请查可用场地和规则。"
 ```
 
 该入口设置90秒整轮超时、8轮上限，默认关闭云端Trace；将模型说明与工具回执分别输出。它目前没有跨轮对话记忆或输出事实复核控制器，不用于自动确认业务事实。模型ID待账户验证，不硬编码或臆测。
+
+只读Gradio表单仍是离线模式，不读取加密密钥；保存配置不会把界面自动切换成聊天Agent。真实模型请求需要可用API额度。
 
 ## 项目结构
 
