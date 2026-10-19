@@ -12,6 +12,7 @@
 - `.gitignore`排除所有环境密钥文件（保留空模板.env.example）、证书、虚拟环境、运行数据和日志。
 - `.gitattributes`及`.editorconfig`统一编码与换行；PR模板提示验证及共享接口契约。
 - 本仓库Git提交邮箱使用GitHub noreply地址，只修改仓库级配置，不修改全局Git身份。
+- 此仓库的GitHub HTTPS认证使用已登录的GitHub CLI凭据助手，不在远端URL或仓库文件中保存令牌。
 - 未配置自动合并，未邀请未指定的协作者；未发布学校资料或本地数据库。
 - 已开启合并后自动删除功能分支，关闭Wiki，设置项目说明和主题；Actions默认令牌权限为read，不能审批PR。
 - 首次推送遇到本机旧Git代理不可用，已将此仓库的http.proxy改为当前系统启用的代理。仅保存在本地.git/config；不上传代理地址，不修改全局Git设置。
@@ -27,7 +28,7 @@
 - `uv pip check`：81个包兼容。
 - `git diff --cached --check`：通过；37个待上传文件检查，未发现疑似密钥或应排除的文件；CI YAML结构校验通过。
 
-远端验证：[GitHub Actions运行39292124816](https://github.com/GU143312/CampusVenueAssistant/actions/runs/39292124816)，对应提交4e439c0。Windows与Ubuntu两个任务均为success，锁定安装、依赖兼容检查、40项测试、模拟数据初始化、真实SDK/MCP往返和编译步骤全部成功。首次手动触发用于验证新仓库工作流；后续推送/PR按ci.yml自动触发。后续提交状态以[Actions页面](https://github.com/GU143312/CampusVenueAssistant/actions)为准。
+远端验证：[GitHub Actions运行39292124816](https://github.com/GU143312/CampusVenueAssistant/actions/runs/39292124816)，对应提交4e439c0。Windows与Ubuntu两个任务均为success，锁定安装、依赖兼容检查、40项测试、模拟数据初始化、真实SDK/MCP往返和编译步骤全部成功。Ubuntu测试为40 passed in 10.82s，Windows为40 passed in 18.08s；两侧smoke均报告database_unchanged=true。首次手动触发用于验证新仓库工作流；后续推送/PR按ci.yml自动触发。后续提交状态以[Actions页面](https://github.com/GU143312/CampusVenueAssistant/actions)为准。
 
 ## 维护约定
 
