@@ -46,7 +46,7 @@ Windows，本机Python 3.12.7，uv 0.12.23。实测版本：openai-agents 0.24.0
 
 ## 未验证和已知限制
 
-真实模型调用、模型可用性/费用/延迟、自然语言成功率、长期多轮会话、Coordinator→Search.as_tool、注入防御模型效果、云端Trace、另一台机器重装、macOS/Linux均未验证。当前测试保证确定性层和接口行为，不能证明模型永远不幻觉。
+真实模型调用、模型可用性/费用/延迟、自然语言成功率、长期多轮会话、Coordinator→Search.as_tool、注入防御模型效果、云端Trace、组员电脑完整UI启动和macOS均未验证。GitHub配置阶段已在Windows与Ubuntu干净CI环境验证锁定安装、测试和MCP链路，见GITHUB_SETUP.md。当前测试保证确定性层和接口行为，不能证明模型永远不幻觉。
 
 当前规则检索是关键词基线；不是完整Agentic RAG。规则JSON与校验器阈值仍有重复，测试固定检查版本内参数，后续应集中配置。每次表单查询都会启动MCP子进程，尚未做性能优化。库结构是只读子集，没有原方案的tasks/proposals/approvals/operations/preferences等表。
 

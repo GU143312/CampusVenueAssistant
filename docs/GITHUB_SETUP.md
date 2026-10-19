@@ -2,7 +2,7 @@
 
 日期：2026-10-20，UTC+08。
 
-目标仓库：https://github.com/GU143312/CampusVenueAssistant ，私有仓库，默认分支main。当前任务包含首次提交与推送，不部署公网服务。
+仓库：https://github.com/GU143312/CampusVenueAssistant ，已创建为私有仓库，默认分支main。本地main已跟踪origin/main；首次提交4e439c0已推送并核对远端SHA一致。不部署公网服务。
 
 ## 配置
 
@@ -13,6 +13,8 @@
 - `.gitattributes`及`.editorconfig`统一编码与换行；PR模板提示验证及共享接口契约。
 - 本仓库Git提交邮箱使用GitHub noreply地址，只修改仓库级配置，不修改全局Git身份。
 - 未配置自动合并，未邀请未指定的协作者；未发布学校资料或本地数据库。
+- 已开启合并后自动删除功能分支，关闭Wiki，设置项目说明和主题；Actions默认令牌权限为read，不能审批PR。
+- 首次推送遇到本机旧Git代理不可用，已将此仓库的http.proxy改为当前系统启用的代理。仅保存在本地.git/config；不上传代理地址，不修改全局Git设置。
 
 ## 检查记录
 
@@ -25,7 +27,7 @@
 - `uv pip check`：81个包兼容。
 - `git diff --cached --check`：通过；37个待上传文件检查，未发现疑似密钥或应排除的文件；CI YAML结构校验通过。
 
-远端运行结果将在首次CI完成后追加。
+远端验证：[GitHub Actions运行39292124816](https://github.com/GU143312/CampusVenueAssistant/actions/runs/39292124816)，对应提交4e439c0。Windows与Ubuntu两个任务均为success，锁定安装、依赖兼容检查、40项测试、模拟数据初始化、真实SDK/MCP往返和编译步骤全部成功。首次手动触发用于验证新仓库工作流；后续推送/PR按ci.yml自动触发。后续提交状态以[Actions页面](https://github.com/GU143312/CampusVenueAssistant/actions)为准。
 
 ## 维护约定
 
