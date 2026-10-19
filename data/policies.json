@@ -1,0 +1,12 @@
+{
+  "version": "rules_v1",
+  "simulated": true,
+  "rules": {"open_hour": 8, "close_hour": 22, "step_minutes": 30, "min_duration": 30, "max_duration": 120, "horizon_days": 7},
+  "clauses": [
+    {"clause_id":"P001","text":"单次使用时长为30至120分钟，以30分钟为步长。","keywords":["时长","多久","分钟","duration"],"source":"data/policies.json#P001"},
+    {"clause_id":"P002","text":"开放时间为本地时间08:00至22:00；仅查询从今天起连续7个日期内的未来时段，不跨日。","keywords":["开放","时间","日期","几天","几点","hours"],"source":"data/policies.json#P002"},
+    {"clause_id":"P003","text":"人数不能超过容量，所有必需设备和必需楼栋必须满足；楼栋偏好只影响排序。","keywords":["人数","容量","设备","投影","楼栋","偏好","capacity","projector"],"source":"data/policies.json#P003"},
+    {"clause_id":"P004","text":"禁用房间和需要实验室资格的房间不向普通演示用户开放。资格由服务端配置，不能由聊天授予。","keywords":["资格","实验室","权限","禁用","lab"],"source":"data/policies.json#P004"},
+    {"clause_id":"P005","text":"已有有效预约的重叠时段不可用；相邻时段允许。查询结果不锁定场地，也不代表预约成功。","keywords":["冲突","重叠","占用","预约","预订","booking"],"source":"data/policies.json#P005"}
+  ]
+}
